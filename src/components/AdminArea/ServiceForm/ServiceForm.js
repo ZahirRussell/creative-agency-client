@@ -1,6 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import Sidebar from '../../Dashboard/Sidebar/Sidebar';
+import Sidebar from '../../Dashboard/Dashboard/Sidebar';
+import TopBar from '../../Dashboard/Dashboard/TopBar';
 
 const ServiceForm = () => {
     const { register, handleSubmit, errors } = useForm();
@@ -19,16 +20,15 @@ const ServiceForm = () => {
             })
     }
     return (
-        <div className="row">
-
+        <div class="d-flex" id="wrapper">
             <Sidebar></Sidebar>
-
-
-            <div className="container" style={{background: '#F4F7FC' }}>               
-                <div className="p-5">
-                    <div className="bg-white p-5">
-                            <h2 className="text-center">Add Service</h2>
-                            <form className="p-3" onSubmit={handleSubmit(onSubmit)}>                   
+            <div id="page-content-wrapper">
+                <TopBar></TopBar>
+                <div className="container" style={{ background: '#F4F7FC' }}>
+                    <div className="p-5">
+                        <div className="bg-white p-4">
+                            <h2 className="mt-0 text-center">Add Service</h2>
+                            <form className="p-3" onSubmit={handleSubmit(onSubmit)}>
 
                                 <div className="form-group">
                                     <div className="form-row">
@@ -39,7 +39,7 @@ const ServiceForm = () => {
                                         </div>
                                         <div className="col">
                                             <label htmlFor="">Icon</label>
-                                            <input type="file" class="form-control btn btn-info" name="projectFile" id="projectFile"/>                                              
+                                            <input type="file" class="form-control btn btn-info" name="projectFile" id="projectFile" />
                                         </div>
                                     </div>
                                 </div>
@@ -54,10 +54,11 @@ const ServiceForm = () => {
                                     <button type="submit" class="btn btn-success" >Submit</button>
                                 </div>
                             </form>
-                   </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
     );
 };
 

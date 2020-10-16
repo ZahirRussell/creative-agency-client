@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import './Sidebar.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHandsHelping, faCartArrowDown, faComments, faList, faUserLock, faPlus, faHome } from '@fortawesome/free-solid-svg-icons';
 import { UserContext } from '../../../App';
@@ -23,53 +22,44 @@ const Sidebar = () => {
     }, [])
 
     return (
-        <div className="sidebar d-flex flex-column justify-content-between" style={{ height: "100vh" }}>
-
-            <ul className="list-unstyled">
-                <a class="navbar-brand m-4 " href="/dashboard"><img src={logo} alt="" style={{ height: '50px' }} /></a>
-
-                    <li>
-                        <Link to="/" >
-                            <FontAwesomeIcon icon={faHome} /> <span>Home</span>
-                        </Link>
-                    </li>
-                {!isAdmin && <div>
-                    {/* <li>
-                    <Link to="/makeOrder" >
-                        <FontAwesomeIcon icon={faCartArrowDown} /> <span>Order</span>
+        <div id="sidebar-wrapper">
+            <div class="sidebar-heading"><img src={logo} alt="" style={{ height: '50px' }} /></div>
+            <div class="list-group list-group-flush">
+                <a href="#" class="list-group-item list-group-item-action">
+                    <Link to="/" >
+                        <FontAwesomeIcon icon={faHome} /> <span>Home</span>
                     </Link>
-                    </li> */}                    
-                    <li>
+                </a>
+                {!isAdmin && <div>
+                    <a href="#" class="list-group-item list-group-item-action">
                         <Link to="/orderList" >
                             <FontAwesomeIcon icon={faList} /> <span>Order List</span>
                         </Link>
-                    </li>
-                    <li>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">
                         <Link to="addReview" >
                             <FontAwesomeIcon icon={faComments} /> <span>Review</span>
                         </Link>
-                    </li>
-                    
+                    </a>
                 </div>}
-
                 {isAdmin && <div>
-                    <li>
+                    <a href="#" class="list-group-item list-group-item-action ">
                         <Link to="servicesList" >
                             <FontAwesomeIcon icon={faHandsHelping} /> <span>Service List</span>
                         </Link>
-                    </li>
-                    <li>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">
                         <Link to="addService" >
                             <FontAwesomeIcon icon={faPlus} /> <span>Add Service</span>
                         </Link>
-                    </li>
-                    <li>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">
                         <Link to="makeAdmin" >
                             <FontAwesomeIcon icon={faUserLock} /> <span>Make Admin</span>
                         </Link>
-                    </li>
+                    </a>
                 </div>}
-            </ul>
+            </div>
         </div>
     );
 };

@@ -1,7 +1,8 @@
-import {  
+import {
   BrowserRouter as Router,
   Switch,
-  Route } from 'react-router-dom';
+  Route
+} from 'react-router-dom';
 import React, { createContext, useState } from 'react';
 import './App.css';
 import Home from './components/Home/Home/Home';
@@ -20,48 +21,49 @@ function App() {
   const [loggedInUser, setLoggedInUser] = useState({});
 
   return (
-    <UserContext.Provider value={[loggedInUser, setLoggedInUser]}>    
-      <Router>           
-            <Switch>
-              <Route path="/home">
-                <Home />
-              </Route>
-             <PrivateRoute path="/dashboard" >
-                  <Dashboard></Dashboard>
-            </PrivateRoute> 
-             {/* <Route path="/dashboard" >
+    <UserContext.Provider value={[loggedInUser, setLoggedInUser]}>
+      <Router>
+        <Switch>
+          <Route path="/home">
+            <Home />
+          </Route>
+          <PrivateRoute path="/dashboard" >
+            <Dashboard></Dashboard>
+          </PrivateRoute>
+          {/* <Route path="/dashboard" >
                <Dashboard></Dashboard>
-            </Route>   */}
-            <PrivateRoute path="/makeOrder/:title">
-                <OrderForm></OrderForm>
-            </PrivateRoute> 
-            <Route path="/orderList" >
-              <OrderList></OrderList>
-            </Route>
-            <PrivateRoute path="/addReview" >
-              <ReviewForm></ReviewForm>
-            </PrivateRoute>
-            <Route path="/servicesList" >
-              <ServicesList></ServicesList>
-            </Route>
-            <Route path="/addService" >
-              <ServiceForm></ServiceForm>
-            </Route>
-            <Route path="/makeAdmin" >
-              <MakeAdmin></MakeAdmin>
-            </Route>
-            <Route path="/login" >
-              <Login></Login>
-            </Route>
-                        
-              <Route exact path="/">
-                <Home />
-              </Route>
-            </Switch>
-        </Router>    
-      </UserContext.Provider>
+            </Route>    */}
+          <PrivateRoute path="/makeOrder/:title">
+            <OrderForm></OrderForm>
+          </PrivateRoute>
+          <Route path="/makeOrder" >
+            <OrderForm></OrderForm>
+          </Route>
+          <Route path="/orderList" >
+            <OrderList></OrderList>
+          </Route>
+          <PrivateRoute path="/addReview" >
+            <ReviewForm></ReviewForm>
+          </PrivateRoute>
+          <Route path="/servicesList" >
+            <ServicesList></ServicesList>
+          </Route>
+          <Route path="/addService" >
+            <ServiceForm></ServiceForm>
+          </Route>
+          <Route path="/makeAdmin" >
+            <MakeAdmin></MakeAdmin>
+          </Route>
+          <Route path="/login" >
+            <Login></Login>
+          </Route>
 
-  
+          <Route exact path="/">
+            <Home />
+          </Route>
+        </Switch>
+      </Router>
+    </UserContext.Provider>
   );
 }
 

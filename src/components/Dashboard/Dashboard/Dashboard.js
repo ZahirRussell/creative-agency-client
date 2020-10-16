@@ -1,11 +1,14 @@
-import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import { faInfoCircle, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../../../App';
-import Sidebar from '../Sidebar/Sidebar';
+import Sidebar from './Sidebar';
+import TopBar from './TopBar';
+import './Dashboard.css';
 
 const Dashboard = () => {
-    const [loggedInUser,setLoggedInUser] = useContext(UserContext);
+    document.title = "CA | Dashboard";
+    const [loggedInUser, setLoggedInUser] = useContext(UserContext);
     const [isAdmin, setIsAdmin] = useState(false);
 
     useEffect(() => {
@@ -19,31 +22,36 @@ const Dashboard = () => {
     }, [])
 
     return (
-        <section>
 
-            <div className="row">
-                <div className="col-md-2">
-                    <Sidebar></Sidebar>
-                </div>
-                <div className="col-md-7 offset-md-1 mt-5">
-                        {!isAdmin && <div class="alert alert-info" role="alert">
-                            <h4 class="alert-heading">Well done!</h4>
-                            <strong>Hi {loggedInUser.name}!</strong>
-                            <hr/>
-                            <p class="mb-0"> <FontAwesomeIcon icon={faInfoCircle}/>&nbsp;You are in the <mark> Application user role</mark>.
-                            So you can only place an order, see your ordered item, review on your order</p>
-                        </div>}
-                        {isAdmin && <div class="alert alert-info" role="alert">
-                            <h4 class="alert-heading">Well done!</h4>
-                            <strong>Hi {loggedInUser.name}!</strong>
-                            <hr/>
-                            <p class="mb-0"> <FontAwesomeIcon icon={faInfoCircle}/>&nbsp;You are in the <mark>Admin role</mark> .
-                            So you can add service, see your added service, make another admin to the application.</p>
-                        </div>}
-                </div>
+        <div class="d-flex" id="wrapper">
+
+            <Sidebar></Sidebar>
+            <div id="page-content-wrapper">
+                <TopBar></TopBar>
+                <section>
+                    <div className="container" style={{ background: '#F4F7FC' }}>
+                        <div className="p-5">
+                            <div className="bg-white p-4">
+                                {!isAdmin && <div class="alert alert-info" role="alert">
+                                    <h4 class="alert-heading">Well done!</h4>
+                                    <strong>Hi {loggedInUser.name}!</strong>
+                                    <hr />
+                                    <p class="mb-0"> <FontAwesomeIcon icon={faInfoCircle} />&nbsp;You are in the <mark> Application user role</mark>.
+                                        So you can only place an order, see your ordered item, review on your order</p>
+                                </div>}
+                                {isAdmin && <div class="alert alert-info" role="alert">
+                                    <h4 class="alert-heading">Well done!</h4>
+                                    <strong>Hi {loggedInUser.name}!</strong>
+                                    <hr />
+                                    <p class="mb-0"> <FontAwesomeIcon icon={faInfoCircle} />&nbsp;You are in the <mark>Admin role</mark>.
+                                         So you can add service, see your added service, make another admin to the application.</p>
+                                </div>}
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
-
-        </section>
+        </div>
     );
 };
 

@@ -1,13 +1,17 @@
+import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory, useParams } from 'react-router-dom';
 import { UserContext } from '../../../App';
-import Sidebar from '../../Dashboard/Sidebar/Sidebar';
+import TopBar from '../../Dashboard/Dashboard/TopBar';
+import Sidebar from '../../Dashboard/Dashboard/Sidebar';
+
 
 const OrderForm = () => {
     const [loggedInUser, setLoggedInUser] = useContext(UserContext);
-    const { name,email } = loggedInUser;
-    const {title} = useParams();
+    const { name, email } = loggedInUser;
+    const { title } = useParams();
     const history = useHistory()
 
     const { register, handleSubmit, errors } = useForm();
@@ -29,59 +33,84 @@ const OrderForm = () => {
     }
 
     return (
-        <div className="row">
 
+        <div class="d-flex" id="wrapper">
             <Sidebar></Sidebar>
+            <div id="page-content-wrapper">
+                <TopBar></TopBar>
+                <div className="container" style={{ background: '#F4F7FC' }}>
+                    <div className="p-5">
+                        <div className="bg-white p-4">
+                            <h2 className="mt-0 text-center">Add Order</h2>
+                            <form onSubmit={handleSubmit(onSubmit)}>
+                                <div className="form-group">
+                                    <input type="text" ref={register({ required: true })} name="name" className="form-control" value={name} readonly="true" />
+                                    {errors.name && <span className="text-danger">This field is required</span>}
+                                </div>
 
-            <div className="container" style={{background: '#F4F7FC' }}>               
-                <div className="p-5">
-                    <div className="bg-white p-5">
-                            <h2 className="text-center">Add Order</h2>
-                            <form className="p-3" onSubmit={handleSubmit(onSubmit)}>                
-                                 <div className="form-group">
-                                        <input type="text" ref={register({ required: true })} name="name" className="form-control" value={name} readonly="true" />
-                                        {errors.name && <span className="text-danger">This field is required</span>}
-                                    </div>
+                                <div className="form-group">
+                                    <input type="text" ref={register({ required: true })} name="email" className="form-control" value={email} readonly="true" />
+                                    {errors.email && <span className="text-danger">This field is required</span>}
 
-                                    <div className="form-group">
-                                        <input type="text" ref={register({ required: true })} name="email" className="form-control" value={email} readonly="true" />
-                                        {errors.email && <span className="text-danger">This field is required</span>}
+                                </div>
 
-                                    </div>
+                                <div className="form-group">
+                                    <input type="text" ref={register({ required: true })} name="serviceName" className="form-control" defaultValue={title} readonly="true" />
+                                    {errors.serviceName && <span className="text-danger">This field is required</span>}
+                                </div>
 
-                                    <div className="form-group">
-                                        <input type="text" ref={register({ required: true })} name="serviceName" className="form-control" defaultValue={title} readonly="true"/>
-                                        {errors.serviceName && <span className="text-danger">This field is required</span>}
-                                    </div>
+                                <div className="form-group">
+                                    <textarea type="text" ref={register({ required: true })} name="details" className="form-control" cols="30" rows="6" placeholder="Project Details"></textarea>
+                                    {errors.details && <span className="text-danger">This field is required</span>}
+                                </div>
 
-                                    <div className="form-group">
-                                        <textarea type="text" ref={register({ required: true })} name="details" className="form-control" cols="30" rows="6" placeholder="Project Details"></textarea>
-                                        {errors.details && <span className="text-danger">This field is required</span>}
-                                    </div>
-
-                                    <div className="form-group">
-                                        <div className="form-row">
-                                            <div className="col">
-                                                <input type="number" ref={register({ required: true })} name="price" className="form-control" placeholder="Price" />
-                                                {errors.price && <span className="text-danger">This field is required</span>}
-                                            </div>
-                                            <div className="col">
-                                                {/* <button type="file" className="btn btn-success w-100 form-control-lg btnUploadFile"> Upload project file </button> */}
-                                                <input type="file" className="custom-file-input" name="projectFile" id="projectFile"/>
-                                                 <label className="custom-file-label" for="projectFile">Choose file</label>
-                                                <span className="text-warning">*Optional</span>
-                                            </div>
+                                <div className="form-group">
+                                    <div className="form-row">
+                                        <div className="col">
+                                            <input type="number" ref={register({ required: true })} name="price" className="form-control" placeholder="Price" />
+                                            {errors.price && <span className="text-danger">This field is required</span>}
+                                        </div>
+                                        <div className="col">
+                                            <input type="file" className="custom-file-input" name="projectFile" id="projectFile" />
+                                            <label className="custom-file-label" for="projectFile">Choose file</label>
+                                            <span className="text-warning">*Optional</span>
                                         </div>
                                     </div>
-                                    <input type="text" ref={register({ required: true })} name="status"  hidden="true" value="Pending" />
+                                </div>
+                                <input type="text" ref={register({ required: true })} name="status" hidden="true" value="Pending" />
+                                <button type="submit" class="btn btn-dark" >Send</button>
 
-                                    <button type="submit" class="btn btn-dark" >Send</button>
-
-                                </form>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+
+
+        // <>
+        //     <Sidebar></Sidebar>
+        //     <div className="w-75 h-100">
+        //         <header className="d-flex align-items-center justify-content-between p-4 ">
+        //             <h4>Dashboard</h4>
+        //             {loggedInUser.email ? (
+        //                 <div className="text-center">
+        //                     <img className="rounded-circle" width='50' src={loggedInUser.photo} alt="UserImage" />
+        //                     <br></br>
+        //                     <span>{loggedInUser.name}</span>
+        //                 </div>
+        //             ) : (
+        //                     <div>
+        //                         <FontAwesomeIcon icon={faUser} />
+        //                         <span>User</span>
+        //                     </div>
+        //                 )}
+        //         </header>
+        //         <main>
+        //             
+        //         </main>
+        //     </div>
+        // </>
     );
 };
 
