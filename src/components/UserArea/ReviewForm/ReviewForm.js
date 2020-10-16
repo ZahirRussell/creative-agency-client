@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
+import { useHistory } from 'react-router-dom';
 import { UserContext } from '../../../App';
 import Sidebar from '../../Dashboard/Dashboard/Sidebar';
 import TopBar from '../../Dashboard/Dashboard/TopBar';
@@ -8,9 +9,10 @@ const ReviewForm = () => {
 
 
     const [loggedInUser, setLoggedInUser] = useContext(UserContext);
-    const { name, photo } = loggedInUser;
+    const { name, photoURL } = loggedInUser;
 
     const { register, handleSubmit, errors } = useForm();
+    const history = useHistory()
 
     const onSubmit = data => {
 
@@ -25,6 +27,7 @@ const ReviewForm = () => {
                 if (success) {
                     console.log('Data', success);
                     alert('Review post successfully.')
+                    history.push("/dashboard");
                 }
             })
 
@@ -41,7 +44,7 @@ const ReviewForm = () => {
                             <h2 className="mt-0 text-center">Review Item</h2>
                             <form className="p-3" onSubmit={handleSubmit(onSubmit)}>
 
-                                <input type="text" ref={register({ required: true })} name="photo" hidden="true" value={photo} />
+                                <input type="text" ref={register({ required: true })} name="photo" hidden="true" value={photoURL} />
 
                                 <div className="form-group">
                                     <input type="text" ref={register({ required: true })} name="name" className="form-control" value={name} readonly="true" />

@@ -36,24 +36,21 @@ function App() {
           <PrivateRoute path="/makeOrder/:title">
             <OrderForm></OrderForm>
           </PrivateRoute>
-          <Route path="/makeOrder" >
-            <OrderForm></OrderForm>
-          </Route>
-          <Route path="/orderList" >
+          <PrivateRoute path="/orderList" >
             <OrderList></OrderList>
-          </Route>
+          </PrivateRoute>
           <PrivateRoute path="/addReview" >
             <ReviewForm></ReviewForm>
           </PrivateRoute>
-          <Route path="/servicesList" >
+          <PrivateRoute path="/servicesList" >
             <ServicesList></ServicesList>
-          </Route>
+          </PrivateRoute>
           <Route path="/addService" >
             <ServiceForm></ServiceForm>
           </Route>
-          <Route path="/makeAdmin" >
+          <PrivateRoute path="/makeAdmin" >
             <MakeAdmin></MakeAdmin>
-          </Route>
+          </PrivateRoute>
           <Route path="/login" >
             <Login></Login>
           </Route>

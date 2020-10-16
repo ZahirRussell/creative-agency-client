@@ -5,6 +5,7 @@ import { UserContext } from '../../../App';
 
 const DashboardTop = () => {
     const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+    console.log(loggedInUser);
     return (
         <nav class="navbar navbar-expand-lg navbar-light">
             <h3>Dashboard</h3>
@@ -17,7 +18,7 @@ const DashboardTop = () => {
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             {loggedInUser.email ? (
-                                <img className="rounded-circle" width='50' src={loggedInUser.photo} alt="UserImage" />
+                                <img className="rounded-circle" width='50' src={loggedInUser.photoURL} alt="UserImage" />
                             ) :
                                 (
                                     <div>

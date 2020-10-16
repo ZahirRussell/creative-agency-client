@@ -86,31 +86,6 @@ const OrderForm = () => {
                 </div>
             </div>
         </div>
-
-
-        // <>
-        //     <Sidebar></Sidebar>
-        //     <div className="w-75 h-100">
-        //         <header className="d-flex align-items-center justify-content-between p-4 ">
-        //             <h4>Dashboard</h4>
-        //             {loggedInUser.email ? (
-        //                 <div className="text-center">
-        //                     <img className="rounded-circle" width='50' src={loggedInUser.photo} alt="UserImage" />
-        //                     <br></br>
-        //                     <span>{loggedInUser.name}</span>
-        //                 </div>
-        //             ) : (
-        //                     <div>
-        //                         <FontAwesomeIcon icon={faUser} />
-        //                         <span>User</span>
-        //                     </div>
-        //                 )}
-        //         </header>
-        //         <main>
-        //             
-        //         </main>
-        //     </div>
-        // </>
     );
 };
 

@@ -17,7 +17,6 @@ const ServicesList = () => {
     const handleStatus = (e, id) => {
         const newStatus = e.target.value
         const data = { id, newStatus }
-        alert(data.newStatus);
 
         fetch(`https://limitless-tundra-47243.herokuapp.com/updateStatus`, {
             method: 'PATCH',

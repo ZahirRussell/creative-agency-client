@@ -1,56 +1,81 @@
 import React, { useContext } from 'react';
-import "firebase/auth";
 import { UserContext } from '../../App';
 import { useHistory, useLocation } from 'react-router-dom';
-import { initializeLoginFramework, handleGoogleSignIn} from './LoginManager';
+import * as firebase from "firebase/app";
 import "firebase/auth";
+import firebaseConfig from './firebase.config';
 import './Login.css';
-
 import logo from '../../images/logos/logo.png';
 import googleIcon from '../../images/icons/google.png';
-
 import './Login.css';
 
 const Login = () => {
+	document.title = "CA || Login";
+	const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+	const history = useHistory();
+	const location = useLocation();
 
-    initializeLoginFramework();
-  
-    const [loggedInUser, setLoggedInUser ] = useContext(UserContext);
-    const history = useHistory();
-    const location = useLocation();
-    let { from } = location.state || { from: { pathname: "/" } };
-  
-    const googleSignIn = () => {
-        handleGoogleSignIn()
-        .then(res => {
-          handleResponse(res, true);
-        })
-    }
+	const { from } = location.state || { from: { pathname: "/" } };
 
-    const handleResponse = (res, redirect) =>{
-        setLoggedInUser(res);
-        if(redirect){
-            history.replace(from);
-        }
-      }
+	// Initialize Firebase
+	if (firebase.apps.length === 0) {
+		firebase.initializeApp(firebaseConfig);
+	}
+	/* GOOGLE Sign in */
+	const handleGoogleSignIn = () => {
+		const provider = new firebase.auth.GoogleAuthProvider();
 
-    return (
-        <div className="text-center">
-            <div className="mt-5 mb-5">
-                <a class="navbar-brand" href="/"><img src={logo} alt="" style={{ height: '50px' }} /></a>
-            </div>
-           <div className="login-form">
+		firebase
+			.auth()
+			.signInWithPopup(provider)
+			.then((result) => {
+				const { displayName, email, photoURL } = result.user;
+				const newUser = {
+					name: displayName,
+					email,
+					photoURL,
+				};
+				console.log(result.user);
+				setLoggedInUser(newUser);
+				//storeAuthToken();
+				history.replace(from);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	};
 
-                <h3 className="mb-4">Login with</h3>
-                <button onClick={googleSignIn} className="btn btn-outline-secondary rounded-pill">
-                    <img src={googleIcon} style={{ height: '40px' }} alt="" /> Continue with Google
+	// const storeAuthToken = () => {
+	// 	firebase
+	// 		.auth()
+	// 		.currentUser.getIdToken(/* forceRefresh */ true)
+	// 		.then(function (idToken) {
+	// 			sessionStorage.setItem("token", idToken);
+	// 			history.replace(from);
+	// 		})
+	// 		.catch(function (error) {
+	// 			// Handle error
+	// 		});
+	// };
+
+
+	return (
+		<div className="text-center">
+			<div className="mt-5 mb-5">
+				<a class="navbar-brand" href="/"><img src={logo} alt="" style={{ height: '50px' }} /></a>
+			</div>
+			<div className="login-form">
+
+				<h3 className="mb-4">Login with</h3>
+				<button onClick={handleGoogleSignIn} className="btn btn-outline-secondary rounded-pill">
+					<img src={googleIcon} style={{ height: '40px' }} alt="" /> Continue with Google
                 </button>
-                <p>Don’t have an account? <a href="" onClick={googleSignIn}>Create an account</a></p>
+				<p>Don’t have an account? <a href="" onClick={handleGoogleSignIn}>Create an account</a></p>
 
 
-            </div>
-        </div>
-    );
+			</div>
+		</div>
+	);
 };
 
 export default Login;
